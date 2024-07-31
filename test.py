@@ -18,11 +18,11 @@ X_test = test_data.drop("paddle_x", axis=1)
 y_test = test_data["paddle_x"]
 
 
-GAME_Width = 6  # from -3 to 3
-PADDLE_WIDTH = 0.8
-
-# 6 possible paddle x positions from -3 to 3
+scaler = MinMaxScaler()
+X_test = scaler.fit_transform(X_test)
 possible_paddle_x = [-2.4, -1.6, -0.8, 0, 0.8, 1.6, 2.4]
+X_test = scaler.transform(X_test)
+print(X_test)
 prediction = model.predict(X_test)
 print(prediction)
 prediction = [

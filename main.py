@@ -41,7 +41,7 @@ model.summary()
 
 # compile the model
 model.compile(
-    optimizer=Adam(learning_rate=0.001),
+    optimizer=Adam(learning_rate=0.0001),
     loss="mean_squared_error",
     metrics=["accuracy"],
 )
@@ -55,7 +55,7 @@ model.fit(
     batch_size=10,
     epochs=300,
     shuffle=True,
-    verbose=2,
+    verbose=1,
 )
 
 
@@ -69,4 +69,11 @@ X_test = test_data.drop("paddle_x", axis=1)
 y_test = test_data["paddle_x"]
 X_test = scaler.transform(X_test)
 predictions = model.predict(X_test)
+possible_paddle_x = [-2.4, -1.6, -0.8, 0, 0.8, 1.6, 2.4]
+
+closest_paddle_x = [
+    possible_paddle_x[np.argmin(np.abs(possible_paddle_x - prediction))]
+    for prediction in predictions
+]
 print(predictions)
+print(closest_paddle_x)
